@@ -19,14 +19,7 @@
     val cache: mutable.Map[A, B] = mutable.Map.empty
     
     def memoize(f: A => B): A => B = {
-      (a: A) => this.cache.get(a) match {
-        case Some(b) => 
-          b
-        case None =>
-          val b = f(a)
-          this.cache.put(a, b)
-          b
-      }
+      (a: A) => this.cache.getOrElseUpdate(a, f(a))
     }
   }
 ```
